@@ -46,12 +46,26 @@ The REST API endpoints for the project are organized as follows:
 2. **Configure the database**:
     - Update the `application.properties` file with your MS SQL database credentials.
 
-3. **Build the project**:
+3. **Create the Stored Procedure**:
+   - Execute the following SQL query in your MS SQL Server to create the stored procedure required for the Dashboard API:
+     ```sql
+     CREATE PROCEDURE dbo.data_dashboard
+     AS
+     BEGIN
+         SELECT
+             COUNT(DISTINCT kk.id) AS jmlKegiatan,
+             COUNT(DISTINCT pk.id) AS jmlProgram,
+             COUNT(DISTINCT pk.instansi) AS jmlSekolah
+         FROM kegiatan_kampus kk, program_kampus pk;
+     END
+     ```
+
+4. **Build the project**:
    ```bash
    mvn clean install
    ```
 
-4. **Run the project**:
+5. **Run the project**:
    ```bash
    mvn spring-boot:run
    ```
